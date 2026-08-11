@@ -725,7 +725,8 @@
     font-size:calc(12px * var(--user-font-scale, 1));
     font-family:var(--heading-font);
     color:var(--ink-faint);
-    margin-bottom:6px;
+    /* 【ご指摘により再修正】まだ離れて見えるとのことで、さらに詰める */
+    margin-bottom:1px;
   }
   .sleep-field input[type=time]{
     width:100%;
@@ -735,7 +736,7 @@
        画面幅にかかわらず、この欄がどれだけ大きくなろうとしても、確実に収まる余裕を持たせる。 */
     /* 【ご要望により再修正】文字サイズ設定に応じて欄自体も少しだけ大きくなるようにしつつ、
        安全マージン(実機で約50px確認済み)を大きく削らない範囲に上限を設ける。 */
-    max-width:clamp(100px, calc(100px * var(--user-font-scale, 1)), 135px);
+    max-width:clamp(100px, calc(100px * var(--user-font-scale, 1)), 140px);
     min-width:0;
     box-sizing:border-box;
     font-family:var(--heading-font);
@@ -743,7 +744,7 @@
        なってしまうため、設定に応じて多少は大きくなるようにしつつ、はみ出しの原因になった
        範囲までは大きくならないよう、clamp()で上限を設ける(実機での安全マージンを維持)。
        目安:標準時16px、最大設定(1.4倍)でも19px止まりにする。 */
-    font-size:clamp(14px, calc(16px * var(--user-font-scale, 1)), 19px);
+    font-size:clamp(14px, calc(16px * var(--user-font-scale, 1)), 20px);
     text-align:center;
     border:1px solid var(--border);
     border-radius:8px;
@@ -753,6 +754,14 @@
     padding:8px 3px;
     background:var(--paper);
     color:var(--ink);
+    /* 【ご指摘により追加】type="time"のネイティブ表示(時刻の数字そのもの)は、ブラウザによっては
+       font-sizeの指定を無視し、常に同じ大きさで描画されることが実機で確認された。
+       font-sizeの変更だけでは反映されないため、CSSのtransform(拡大縮小)を使って、
+       描画された見た目そのものを強制的に拡大縮小する。中央基準で拡大するので、
+       欄の位置自体は動かない。親要素(.sleep-field)のoverflow:hiddenで、
+       拡大した分が欄からはみ出さないよう食い止める。 */
+    transform:scale(clamp(0.9, var(--user-font-scale, 1), 1.25));
+    transform-origin:center;
   }
   .sleep-arrow{display:none;}
   /* 【ご要望により追加】睡眠カードに限り、左右の余白を通常のカードより少し狭くし、
@@ -1952,7 +1961,7 @@
   .sleep-field label{font-size:calc(14px * var(--user-font-scale, 1));}
   /* 【ご要望により再修正】設定に応じて多少大きくなるが、はみ出しの原因になる範囲までは
      大きくならないよう上限を設ける(上記の基本CSSと同じ理由・同じ値)。 */
-  .sleep-field input[type=time]{font-size:clamp(14px, calc(16px * var(--user-font-scale, 1)), 19px);}
+  .sleep-field input[type=time]{font-size:clamp(14px, calc(16px * var(--user-font-scale, 1)), 20px);}
   .sleep-arrow{font-size:calc(18px * var(--user-font-scale, 1));}
   .sleep-result .big{font-size:calc(25px * var(--user-font-scale, 1));}
   .sleep-result .big.sleep-duration-note{font-size:calc(16px * var(--user-font-scale, 1));}
