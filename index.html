@@ -733,18 +733,17 @@
        実機では依然として右側の欄(就寝)が画面外にはみ出すことが実際のスクリーンショットで
        確認された。計算式に頼るのをやめ、固定のごく小さい上限(110px)を直接指定することで、
        画面幅にかかわらず、この欄がどれだけ大きくなろうとしても、確実に収まる余裕を持たせる。 */
-    max-width:110px;
+    /* 【ご要望により再修正】文字サイズ設定に応じて欄自体も少しだけ大きくなるようにしつつ、
+       安全マージン(実機で約50px確認済み)を大きく削らない範囲に上限を設ける。 */
+    max-width:clamp(100px, calc(100px * var(--user-font-scale, 1)), 135px);
     min-width:0;
     box-sizing:border-box;
     font-family:var(--heading-font);
-    /* 【根本原因が判明したため再修正】文字サイズ設定(--user-font-scale)に連動して
-       この文字サイズも大きくしていたが、この文字サイズが、ブラウザがネイティブの
-       時刻ピッカー内部(時:分の表示)を描画する際の必要スペースにも直結しており、
-       実機では欄の幅(CSSのwidth/max-width)を無視してでもその内部表示を優先して
-       描画してしまう(=欄からはみ出す)ことが実測で分かった。
-       このため、この欄の文字サイズだけは、ユーザーの文字サイズ設定に関係なく
-       常に固定の小さめのサイズにする(はみ出しを確実に防ぐことを最優先する)。 */
-    font-size:16px;
+    /* 【ご要望により再修正】文字サイズ設定を完全に無視すると、その設定が「効いていない」状態に
+       なってしまうため、設定に応じて多少は大きくなるようにしつつ、はみ出しの原因になった
+       範囲までは大きくならないよう、clamp()で上限を設ける(実機での安全マージンを維持)。
+       目安:標準時16px、最大設定(1.4倍)でも19px止まりにする。 */
+    font-size:clamp(14px, calc(16px * var(--user-font-scale, 1)), 19px);
     text-align:center;
     border:1px solid var(--border);
     border-radius:8px;
@@ -1951,9 +1950,9 @@
   .card h2 .num{font-size:calc(11px * var(--user-font-scale, 1));}
   .card h2.h2-share-heading{font-size:calc(17px * var(--user-font-scale, 1));}
   .sleep-field label{font-size:calc(14px * var(--user-font-scale, 1));}
-  /* 【根本原因が判明したため修正】この欄だけは文字サイズ設定に連動させない(上記CSSと同じ理由)。
-     このメディアクエリでの上書き自体は削除せず、固定値で明示しておく(将来の変更時の見落とし防止)。 */
-  .sleep-field input[type=time]{font-size:16px;}
+  /* 【ご要望により再修正】設定に応じて多少大きくなるが、はみ出しの原因になる範囲までは
+     大きくならないよう上限を設ける(上記の基本CSSと同じ理由・同じ値)。 */
+  .sleep-field input[type=time]{font-size:clamp(14px, calc(16px * var(--user-font-scale, 1)), 19px);}
   .sleep-arrow{font-size:calc(18px * var(--user-font-scale, 1));}
   .sleep-result .big{font-size:calc(25px * var(--user-font-scale, 1));}
   .sleep-result .big.sleep-duration-note{font-size:calc(16px * var(--user-font-scale, 1));}
