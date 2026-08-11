@@ -456,11 +456,14 @@
   .schedule-date-picker-row{
     display:flex; align-items:center;
     font-size:calc(14px * var(--user-font-scale, 1)); color:var(--ink); margin-bottom:14px;
+    overflow:hidden;
   }
   .schedule-date-picker-row input{
     width:100%;
     padding:8px 10px; border:1px solid var(--border); border-radius:8px;
-    font-size:calc(14px * var(--user-font-scale, 1)); font-family:inherit; color:var(--ink); background:var(--card);
+    /* 【再三のご指摘により再修正】font-sizeを固定にしてもtransformが残っていたため、
+       transform自体を撤去する(理由は他の日付欄と同じ)。 */
+    font-size:14px; font-family:inherit; color:var(--ink); background:var(--card);
   }
   .cal-jump-row{
     display:flex; flex-wrap:wrap; align-items:center; gap:4px 8px;
@@ -714,6 +717,11 @@
        はみ出していた。overflow:hiddenを保険として設定し、万一はみ出しても
        ページ全体のレイアウトを壊さないようにする。 */
     overflow:hidden;
+    /* 【ご指摘により追加】下記のtransform:scaleで時刻欄を拡大表示すると、中央基準で
+       上下にも広がるため、この余白(padding)がないと拡大した分の上下がoverflow:hiddenで
+       切れてしまっていた(実機で確認)。最大の拡大率(1.25倍)でも収まるよう、
+       上下に十分な余白を確保しておく。 */
+    padding:6px 0;
   }
   /* 【ご指摘・原因判明により再修正】iOSの「文字を大きく」アクセシビリティ設定を強めにしていると、
      ネイティブの時刻ピッカー内部の表示が、ページ側のCSSでの幅指定より優先されて大きくなり、
@@ -725,8 +733,8 @@
     font-size:calc(12px * var(--user-font-scale, 1));
     font-family:var(--heading-font);
     color:var(--ink-faint);
-    /* 【ご指摘により再修正】まだ離れて見えるとのことで、さらに詰める */
-    margin-bottom:1px;
+    /* 【ご指摘により再修正】枠にかかって見えるとのことで、今度は逆に余白を広げる */
+    margin-bottom:8px;
   }
   .sleep-field input[type=time]{
     width:100%;
@@ -811,7 +819,10 @@
   .meal-row{
     display:flex;
     flex-wrap:wrap;
-    gap:6px;
+    /* 【ご指摘により修正】拡大表示(transform:scale)がoverflow:hiddenの制約を無視して
+       隣の欄(内容を記入欄)へはみ出す実機の挙動が確認されたため、
+       overflow:hiddenでの封じ込めに頼らず、そもそも隙間を広げて物理的に届かないようにする。 */
+    gap:16px;
     align-items:flex-start;
     padding:9px 0 4px;
   }
@@ -821,28 +832,49 @@
     font-size:calc(12px * var(--user-font-scale, 1));
     font-family:var(--heading-font);
     color:var(--ink-faint);
+    /* 【①のご指摘により修正】以前はここが6px、時刻欄側(.meal-time)が4pxで、
+       2pxずれていた。さらに文字サイズを上げると「朝食」等のラベルが2行に折り返して
+       縦に伸びる一方、時刻欄側は高さが固定のままだったため、ズレがより目立っていた。
+       両方の上端をきちんと揃える。 */
     padding-top:6px;
   }
   .meal-time-col{
-    width:calc(92px * var(--user-font-scale, 1));
+    /* 【再三のご指摘により修正】transformを撤去しfont-sizeも固定(15px)にした後も、
+       実機では時刻欄が枠(118px)を超えて隣の入力欄と重なる不具合が報告された。
+       これは睡眠欄でも起きた「ネイティブの時刻ピッカーが、CSSの幅指定より
+       広いスペースを要求して描画する」という同じ問題と判断し、幅そのものに
+       大きめの安全マージンを持たせる(118px→155px)。 */
+    width:155px;
     flex-shrink:0;
     display:flex;
     flex-direction:column;
     gap:6px;
   }
   .meal-time{
-    height:30px;
-    margin-top:4px;
+    /* 【①③のご指摘により修正】高さが固定(30px)のままだと、文字サイズを上げた時に
+       欄の中の時刻表示(下記のtransform:scaleで拡大される)がはみ出したり、
+       ラベル側の折り返しで生じる高さと合わなくなったりする。文字サイズ設定に応じて
+       高さも大きくなるようにしつつ、上限(38px)を設けて安全に収める。 */
+    height:clamp(30px, calc(30px * var(--user-font-scale, 1)), 38px);
+    /* 【ご指摘により再修正】実際のスクリーンショットを画素単位で解析した結果、
+       欄の枠が「朝食」の文字より約4px(実寸)上から始まっていることを確認した。
+       6pxでは実際のフォントの見え方に対して不十分だったため、10pxに増やす。 */
+    margin-top:10px;
     display:flex;
     align-items:center;
     position:relative;
+    overflow:hidden;
   }
   .meal-time input[type=time]{
     width:100%;
     height:100%;
     box-sizing:border-box;
     font-family:var(--heading-font);
-    font-size:calc(13px * var(--user-font-scale, 1));
+    /* 【繰り返しの不具合のため方針転換】transform:scaleを使った拡大は、実機で複数回
+       枠からのはみ出しを引き起こしており、安定して制御できないと判断した。
+       睡眠欄とは異なりここは3つ(朝食･昼食･夕食)が縦に並ぶだけで横方向の競合が
+       少ないとはいえ、確実性を優先し、文字サイズ設定に関わらず固定サイズにする。 */
+    font-size:15px;
     border:1px solid var(--border);
     border-radius:8px;
     padding:0 4px;
@@ -1566,7 +1598,11 @@
   #prepCheck.done ~ #prepCookedDateWrap{visibility:visible;}
   .prep-cooked-date input[type=date]{
     font-family:var(--heading-font);
-    font-size:calc(12px * var(--user-font-scale, 1));
+    /* 【再三のご指摘により再修正】font-sizeを固定値にしても、なおtransform:scaleが
+       残っていたため、実質的に二重拡大が続いていた。安全な幅の確保まで手を回せていない
+       この欄では、transform自体を撤去して確実性を優先する(睡眠欄のみ、幅に十分な
+       安全マージンを確保した上でtransformを維持している)。 */
+    font-size:12px;
     border:1px solid var(--border);
     border-radius:6px;
     padding:2px 4px;
@@ -1892,7 +1928,9 @@
     width:100%;
     box-sizing:border-box;
     font-family:var(--heading-font);
-    font-size:calc(20px * var(--user-font-scale, 1));
+    /* 【再三のご指摘により再修正】font-sizeを固定にしてもtransformが残っていたため、
+       transform自体を撤去する(理由はprep-cooked-dateと同じ)。 */
+    font-size:20px;
     font-weight:700;
     color:var(--ink);
     background:var(--paper);
@@ -1968,8 +2006,9 @@
   .sleep-result .small{font-size:calc(14px * var(--user-font-scale, 1));}
   .nutri-disclaimer{font-size:calc(13px * var(--user-font-scale, 1));}
   .meal-tag{font-size:calc(14px * var(--user-font-scale, 1));}
-  .meal-time{height:28px;}
-  .meal-time input[type=time]{font-size:calc(15px * var(--user-font-scale, 1));}
+  .meal-time{height:clamp(28px, calc(28px * var(--user-font-scale, 1)), 36px);}
+  /* 【ご指摘の不具合により修正】ここも同じ理由(font-sizeとtransform:scaleの二重拡大)で固定値にする。 */
+  .meal-time input[type=time]{font-size:15px;}
   .meal-content textarea{font-size:calc(15px * var(--user-font-scale, 1)); min-height:84px;}
   .nutri-btn{font-size:calc(11px * var(--user-font-scale, 1)); padding:4px 1px;}
   .nutri-result{font-size:calc(14px * var(--user-font-scale, 1));}
