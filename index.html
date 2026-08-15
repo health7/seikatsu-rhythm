@@ -3102,6 +3102,389 @@
     }
   }
 
+
+  /* =====================================================================
+     2026-08 食事セクション説明文: 早すぎる改行を防止
+     右側に利用可能幅が残っているのに行を短くしない。
+     ===================================================================== */
+  .card[data-section="meals"] .nutri-legend,
+  .card[data-section="meals"] .nutri-disclaimer{
+    display:block;
+    width:100%;
+    max-width:none;
+    min-width:0;
+    box-sizing:border-box;
+    white-space:normal;
+    word-break:normal;
+    overflow-wrap:normal;
+    line-break:strict;
+    text-wrap:wrap;
+    text-align:left;
+    letter-spacing:normal;
+  }
+
+  /* 説明文の親も利用可能幅を100%使う */
+  .card[data-section="meals"] > .nutri-legend,
+  .card[data-section="meals"] > .nutri-disclaimer{
+    align-self:stretch;
+  }
+
+  @media (max-width:600px){
+    .card[data-section="meals"] .nutri-legend,
+    .card[data-section="meals"] .nutri-disclaimer{
+      font-size:clamp(14px, calc(13px * var(--user-font-scale,1)), 18px);
+      line-height:1.62;
+    }
+  }
+
+
+  /* =====================================================================
+     2026-08 長文説明テキスト全体: 「右に余白があるのに早く改行」を禁止
+     text-wrap:pretty / balance は説明本文には使わない。
+     実際の利用可能幅の右端に達した時だけ通常の折り返しを行う。
+     ===================================================================== */
+  .settings-desc,
+  .sync-note,
+  .archive-note,
+  .storage-mode-notice,
+  .saved-flag,
+  .data-action-confirm-text,
+  .data-action-confirm-skip-label,
+  .premium-status-text,
+  .prep-disclaimer,
+  .nutri-disclaimer,
+  .nutri-matched,
+  .settings-guide,
+  .help-section-card,
+  #helpView .help-body,
+  .backup-security-note{
+    width:auto;
+    max-width:none;
+    min-width:0;
+    box-sizing:border-box;
+    white-space:normal !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    line-break:strict !important;
+    text-wrap:wrap !important;
+    text-align:start;
+  }
+
+  /* カード直下の説明文はカードの利用可能幅を全部使う */
+  .card > .sync-note,
+  .card > .archive-note,
+  .card > .storage-mode-notice,
+  .card > .prep-disclaimer,
+  .card > .nutri-disclaimer{
+    display:block;
+    width:100%;
+    align-self:stretch;
+  }
+
+  /* Googleカレンダー連携の本文は特に全幅利用を明示 */
+  .card[data-section="gcal"] .sync-note{
+    display:block;
+    width:100%;
+    max-width:none;
+    margin-inline:0;
+    padding-inline:0;
+    text-wrap:wrap !important;
+    overflow-wrap:normal !important;
+  }
+
+  /* 長文内の英数字・URL相当だけが物理的に幅を超える場合に備え、
+     コンテナ自身は横にはみ出さない。日本語本文の早期改行には影響させない。 */
+  .card[data-section="gcal"],
+  .help-section-card,
+  .backup-security-note{
+    min-width:0;
+    max-width:100%;
+  }
+
+
+  /* 2026-08 ヘルプ/注意文: Safariでの早すぎる改行を修正 */
+  #helpView .app-view-body,
+  #helpView .help-body{
+    width:100%;
+    max-width:none;
+    min-width:0;
+  }
+  #helpView .help-body{
+    margin-top:8px;
+    font-size:clamp(14px, calc(12px * var(--user-font-scale,1)), 17px);
+    line-height:1.68;
+    letter-spacing:0;
+  }
+  #helpView .help-section-block{
+    width:100%;
+    min-width:0;
+    margin:22px 0 0;
+    padding:22px 0 0;
+    border-top:1px solid var(--border);
+  }
+  #helpView .help-section-block:first-child{
+    margin-top:0;
+    padding-top:0;
+    border-top:none;
+  }
+  #helpView .help-section-block h3{
+    margin:0 0 10px;
+    color:var(--ink);
+    font-family:var(--heading-font);
+    font-size:clamp(16px, calc(14px * var(--user-font-scale,1)), 20px);
+    line-height:1.4;
+  }
+  #helpView .help-section-block p,
+  #helpView .help-section-card p,
+  #helpView .marks-help-text,
+  #helpView .closing-note,
+  #helpView .update-notice p,
+  .prep-disclaimer,
+  .nutri-disclaimer,
+  .sync-note,
+  .archive-note,
+  .storage-mode-notice{
+    width:100%;
+    max-width:none;
+    min-width:0;
+    white-space:normal !important;
+    word-break:break-all !important;
+    overflow-wrap:normal !important;
+    line-break:strict !important;
+    text-wrap:wrap !important;
+    text-align:start;
+  }
+  #helpView .help-section-block p{margin:0 0 9px;}
+  #helpView .help-section-block p:last-child{margin-bottom:0;}
+  #helpView .help-section-card{
+    width:100%;
+    max-width:none;
+    box-sizing:border-box;
+  }
+  #helpView .marks-help-row{
+    width:100%;
+    max-width:none;
+    box-sizing:border-box;
+    margin-left:0;
+    margin-right:0;
+    padding-left:0;
+    padding-right:0;
+    align-items:flex-start;
+  }
+  #helpView .marks-help-text{
+    flex:1 1 0;
+    min-width:0;
+    font-size:clamp(13px, calc(12px * var(--user-font-scale,1)), 17px);
+  }
+  #helpView .closing-note{
+    margin-left:0;
+    margin-right:0;
+    padding-left:0;
+    padding-right:0;
+  }
+  #helpView .closing-note-line1{
+    font-size:inherit;
+    letter-spacing:0;
+  }
+  #helpView .update-notice{
+    width:100%;
+    max-width:none;
+    min-width:0;
+  }
+  #helpView .update-notice a{
+    display:block;
+    max-width:100%;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+  @media (max-width:420px){
+    #helpView.app-view{
+      padding-left:calc(10px + env(safe-area-inset-left));
+      padding-right:calc(10px + env(safe-area-inset-right));
+    }
+    #helpView .app-view-header{
+      width:100%;
+      max-width:none;
+    }
+    #helpView .help-section-card{
+      padding:13px 12px;
+    }
+  }
+
+
+  /* =====================================================================
+     2026-08 食事「食べていない」ラベル見切れ修正
+     - ラベルを時刻列の実幅内に必ず収める。
+     - スマホでも内容欄を残しつつ、時刻列をラベルに必要な幅まで確保する。
+     - 文字拡大時もラベル自体をoverflowで切らない。
+     ===================================================================== */
+  .card[data-section="meals"] .meal-time-col{
+    width:clamp(118px, calc(108px * var(--user-font-scale,1)), 154px);
+    flex:0 0 clamp(118px, calc(108px * var(--user-font-scale,1)), 154px);
+    overflow:visible;
+  }
+  .card[data-section="meals"] .meal-skip-label{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    margin:0;
+    padding:4px 0;
+    gap:5px;
+    overflow:visible;
+    white-space:nowrap;
+    box-sizing:border-box;
+  }
+  .card[data-section="meals"] .meal-skip-label input[type=checkbox]{
+    flex:0 0 auto;
+  }
+  .card[data-section="meals"] .meal-skip-label span{
+    display:block;
+    flex:1 1 auto;
+    min-width:0;
+    white-space:nowrap !important;
+    overflow:visible !important;
+    text-overflow:clip !important;
+    word-break:keep-all !important;
+    font-size:clamp(12px, calc(9.5px * var(--user-font-scale,1)), 16px);
+    line-height:1.35;
+  }
+  @media (max-width:360px){
+    .card[data-section="meals"] .meal-time-col{
+      width:clamp(112px, calc(104px * var(--user-font-scale,1)), 142px);
+      flex-basis:clamp(112px, calc(104px * var(--user-font-scale,1)), 142px);
+    }
+  }
+
+
+
+  /* =====================================================================
+     2026-08-15 モバイル長文の不自然な早期改行を最終是正
+     - text-wrap:pretty / balance / break-all を長文本文から完全に排除。
+     - 文章は利用可能幅の右端まで使ってから通常折返し。
+     - 最大文字サイズでも本文だけが過大化して1〜2文字単位で落ちないよう上限を設定。
+     - 注意カード・手順リスト・バックアップ操作ボタンの内側余白を狭い画面で最適化。
+     - 見切れを隠すための overflow:hidden は使用しない。
+     ===================================================================== */
+  .settings-desc,
+  .sync-note,
+  .archive-note,
+  .storage-mode-notice,
+  .settings-guide,
+  .settings-guide p,
+  .settings-guide li,
+  .settings-guide-warning,
+  .settings-guide-note,
+  .help-section-card,
+  .help-section-card p,
+  #helpView .help-body,
+  #helpView .help-body p,
+  #helpView .help-section-block p,
+  #helpView .marks-help-text,
+  #helpView .closing-note,
+  #helpView .update-notice p,
+  .backup-security-note,
+  .backup-security-note p,
+  .backup-encryption-help,
+  .backup-photo-skip-note-inline{
+    width:100%;
+    max-width:none;
+    min-width:0;
+    white-space:normal !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    line-break:strict !important;
+    text-wrap:wrap !important;
+    text-align:start;
+    letter-spacing:0;
+  }
+
+  /* 項目編集の説明も「見た目を整えるための均等折返し」をしない */
+  #editItemsView .settings-desc,
+  #confirmSkipSettingsView .settings-desc{
+    text-wrap:wrap !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+  }
+
+  /* 手順番号のインデントで本文幅を必要以上に失わない */
+  .settings-guide-steps{
+    box-sizing:border-box;
+    width:100%;
+    margin:8px 0 0;
+    padding-left:1.35em;
+  }
+  .settings-guide-steps li{
+    padding-left:.05em;
+  }
+
+  /* バックアップのボタン本文も balance/pretty を使わず、実幅いっぱいまで使う */
+  #backupView .sync-btn,
+  #backupView .sync-btn > span{
+    white-space:normal;
+    word-break:normal;
+    overflow-wrap:normal;
+    line-break:strict;
+    text-wrap:wrap;
+    max-width:100%;
+  }
+
+  @media (max-width:600px){
+    /* 狭い画面では左右の死に余白を減らし、本文へ幅を返す */
+    .app-view{
+      padding-left:calc(10px + env(safe-area-inset-left));
+      padding-right:calc(10px + env(safe-area-inset-right));
+    }
+    .app-view-header,
+    .app-view-body{
+      width:100%;
+      max-width:none;
+    }
+
+    /* 最大文字設定でも説明本文は17pxを上限にして読みやすい行長を確保 */
+    .settings-desc,
+    .sync-note,
+    .archive-note,
+    .storage-mode-notice,
+    .settings-guide,
+    #helpView .help-body,
+    .backup-security-note,
+    .backup-encryption-help{
+      font-size:clamp(14px, calc(12px * var(--user-font-scale,1)), 17px) !important;
+      line-height:1.68;
+    }
+
+    .settings-guide-help,
+    .help-section-card,
+    .backup-security-note{
+      padding-left:12px;
+      padding-right:12px;
+    }
+
+    .backup-encryption-box{
+      padding-left:12px;
+      padding-right:12px;
+    }
+    .backup-encryption-toggle{
+      font-size:clamp(15px, calc(13px * var(--user-font-scale,1)), 18px);
+      line-height:1.5;
+    }
+
+    #backupView .sync-btn{
+      width:100%;
+      padding:11px 12px;
+      font-size:clamp(14px, calc(12px * var(--user-font-scale,1)), 17px) !important;
+      line-height:1.48 !important;
+    }
+    #backupView .backup-photo-skip-note-inline{
+      font-size:clamp(12px, calc(10.5px * var(--user-font-scale,1)), 15px);
+      line-height:1.55;
+    }
+
+    #editItemsView .settings-desc{
+      font-size:clamp(14px, calc(12px * var(--user-font-scale,1)), 17px) !important;
+      line-height:1.65;
+    }
+  }
 </style>
 </head>
 <body>
@@ -3424,9 +3807,7 @@
     </div>
     <div class="sub-divider"></div>
     <h3 class="sub-h2">古い写真のアーカイブ <span class="num">ARCHIVE</span></h3>
-    <p class="archive-note">長年ご利用いただくと、写真の枚数が増え、データの書き出し(バックアップ)に時間がかかったり･動作が重くなったりすることがあります。<br>
-    ある時期より前の写真を専用ファイルへ書き出し･アプリ内から削除することで、アプリの動作を軽快に保つことができます。<br>
-    <b style="font-weight:700; color:var(--hanko-dark);">書き出したファイルは、大切に保管してください(このファイルが唯一のコピーになります)。</b></p>
+    <p class="archive-note">長年ご利用いただくと、写真の枚数が増え、データの書き出し(バックアップ)に時間がかかったり･動作が重くなったりすることがあります。 ある時期より前の写真を専用ファイルへ書き出し･アプリ内から削除することで、アプリの動作を軽快に保つことができます。 <b style="font-weight:700; color:var(--hanko-dark);">書き出したファイルは、大切に保管してください(このファイルが唯一のコピーになります)。</b></p>
     <div class="sync-actions">
       <label class="archive-note" style="display:block; margin-top:10px; margin-bottom:6px;">この日付より前の写真をアーカイブする：</label>
       <input type="date" id="archiveBeforeDate" class="archive-date-input" style="margin-bottom:10px;">
@@ -3513,7 +3894,7 @@
           <li>設定画面で、アイコンを選び直します。</li>
           <li>本アプリをもう一度ホーム画面へ追加します。</li>
         </ol>
-        <p class="settings-guide-warning"><b>記録を残す必要がある場合</b><br>アイコンを削除する前に、必ずバックアップを作成してください。</p>
+        <p class="settings-guide-warning"><b>記録を残す必要がある場合</b> アイコンを削除する前に、必ずバックアップを作成してください。</p>
       </div>
     </div>
     <div class="settings-guide" id="iconViewDescPc" style="display:none;">
@@ -3527,7 +3908,7 @@
           <li>設定画面で、アイコンを選び直します。</li>
           <li>再度、デスクトップへ追加します。</li>
         </ol>
-        <p class="settings-guide-warning"><b>記録を残す必要がある場合</b><br>ショートカット等を削除する前に、必ずバックアップを作成してください。</p>
+        <p class="settings-guide-warning"><b>記録を残す必要がある場合</b> ショートカット等を削除する前に、必ずバックアップを作成してください。</p>
       </div>
     </div>
     <div class="settings-guide" id="iconViewDescIos" style="display:none;">
@@ -3716,20 +4097,26 @@
   </div>
   <div class="app-view-body">
     <div class="help-body">
-      <p class="help-section"><b>睡眠について</b><br>
-      起床：その日の朝に起きた時刻を記録する欄です。<br>
-      就寝：その日の夜に寝た時刻を記録する欄です。<br>
-      ※日付が変わってから眠った場合(深夜0時～早朝)も、実際の時刻をそのまま入力してください。</p>
-      <p>就寝時刻は翌朝の起床時刻とペアとなり、睡眠時間の計算に使用されます。</p>
-      <p class="help-section"><b>食事･栄養について</b><br>
-      食事内容を入力して｢栄養を計算｣を押すと、内蔵の食品データベースをもとに｢カロリー･たんぱく質･脂質･炭水化物｣を概算します。実測値ではないため、目安としてご利用ください。<br>
-      ※内容を変更した場合は、再度｢栄養を計算｣を押すと最新の値に更新されます。</p>
-      <p class="help-section"><b>ラジオ体操･湯船･掃除･洗濯</b><br>
-      タップするとスタンプが押されます。<br>
-      2日以上連続で達成すると、｢継続○日目｣と表示されます。</p>
-      <p class="help-section"><b>月間カレンダー、予定、やることリスト</b><br>
-      ｢予定｣や｢やることリスト｣に入力があると、カレンダーに小さな印が表示されます。<br>
-      ｢やることリスト｣のデータはチェックをつけない限り、翌日以降も表示され続けます。</p>
+      <section class="help-section-block">
+        <h3>睡眠について</h3>
+        <p>起床：その日の朝に起きた時刻を記録する欄です。</p>
+        <p>就寝：その日の夜に寝た時刻を記録する欄です。</p>
+        <p>※日付が変わってから眠った場合(深夜0時～早朝)も、実際の時刻をそのまま入力してください。</p>
+        <p>就寝時刻は翌朝の起床時刻とペアとなり、睡眠時間の計算に使用されます。</p>
+      </section>
+      <section class="help-section-block">
+        <h3>食事･栄養について</h3>
+        <p>食事内容を入力して｢栄養を計算｣を押すと、内蔵の食品データベースをもとに｢カロリー･たんぱく質･脂質･炭水化物｣を概算します。実測値ではないため、目安としてご利用ください。</p>
+        <p>※内容を変更した場合は、再度｢栄養を計算｣を押すと最新の値に更新されます。</p>
+      </section>
+      <section class="help-section-block">
+        <h3>ラジオ体操･湯船･掃除･洗濯</h3>
+        <p>タップするとスタンプが押されます。2日以上連続で達成すると、｢継続○日目｣と表示されます。</p>
+      </section>
+      <section class="help-section-block">
+        <h3>月間カレンダー、予定、やることリスト</h3>
+        <p>｢予定｣や｢やることリスト｣に入力があると、カレンダーに小さな印が表示されます。｢やることリスト｣のデータはチェックをつけない限り、翌日以降も表示され続けます。</p>
+      </section>
       <div class="help-section-card">
         <h3>データの保存先について</h3>
         <div id="helpStorageDescWeb">
@@ -3758,7 +4145,7 @@
             <line x1="7.5" y1="2" x2="7.5" y2="6.5"/><line x1="16.5" y1="2" x2="16.5" y2="6.5"/>
           </svg>
         </span>
-        <span class="marks-help-text marks-help-text-wrap">カレンダー･･カレンダーの欄へ移動します。<br>(※カレンダーが右側の列に表示されている画面では、この機能はご利用いただけません。)</span>
+        <span class="marks-help-text marks-help-text-wrap">カレンダー･･カレンダーの欄へ移動します。(※カレンダーが右側の列に表示されている画面では、この機能はご利用いただけません。)</span>
       </div>
       <div class="marks-help-row">
         <span class="marks-help-icon">
@@ -3781,11 +4168,8 @@
         </span>
         <span class="marks-help-text">画面トップへ移動･･画面の一番上へ移動します。</span>
       </div>
-      <p class="closing-note"><span class="closing-note-line1">簡易なツールではありますが、すこしでもお役に立てると嬉しいです。</span><br>
-      今日が素敵な一日となりますように。</p>
-      <p class="update-notice" id="webUpdateNotice">万一更新があった際は、下記URLより最新版をご利用いただけます。<br>
-      よろしければご覧ください。<br>
-      <a href="https://health7.github.io/seikatsu-rhythm/" target="_blank" rel="noopener noreferrer">https://health7.github.io/seikatsu-rhythm/</a></p>
+      <p class="closing-note"><span class="closing-note-line1">簡易なツールではありますが、すこしでもお役に立てると嬉しいです。今日が素敵な一日となりますように。</span></p>
+      <div class="update-notice" id="webUpdateNotice"><p>万一更新があった際は、下記URLより最新版をご利用いただけます。よろしければご覧ください。</p><a href="https://health7.github.io/seikatsu-rhythm/" target="_blank" rel="noopener noreferrer">https://health7.github.io/seikatsu-rhythm/</a></div>
     </div>
   </div>
 </div>
