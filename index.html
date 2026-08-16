@@ -4988,6 +4988,93 @@
     .stamp-cell{padding-block:12px;}
   }
 
+
+  /* =====================================================================
+     2026-08-16 習慣カード：文字サイズ連動を穏やかにし、上下余白を常に均等化
+     対象：ラジオ体操 / 湯船 / 掃除 / 洗濯 の4カードのみ
+     ===================================================================== */
+  html{--habit-card-scale:1;}
+  html[data-font-size="small"]{--habit-card-scale:.94;}
+  html[data-font-size="normal"]{--habit-card-scale:1;}
+  html[data-font-size="large"]{--habit-card-scale:1.06;}
+  html[data-font-size="xlarge"]{--habit-card-scale:1.11;}
+
+  .stamp-grid .stamp-cell{
+    aspect-ratio:1 / 1.02 !important;
+    min-height:0 !important;
+    height:auto !important;
+    padding:clamp(12px,3.5vw,18px) clamp(8px,2.6vw,14px) !important;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center !important;
+  }
+  .stamp-grid .stamp-card-content{
+    width:100%;
+    height:auto;
+    margin:auto 0 !important;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+  }
+  .stamp-grid .stamp-cell .label{
+    min-height:0;
+    margin:0 0 calc(9px * var(--habit-card-scale));
+    font-size:calc(18px * var(--habit-card-scale)) !important;
+    line-height:1.18 !important;
+    letter-spacing:.025em;
+  }
+  .stamp-grid .stamp-visual{
+    width:calc(47px * var(--habit-card-scale)) !important;
+    height:calc(47px * var(--habit-card-scale)) !important;
+    margin:0 auto calc(7px * var(--habit-card-scale));
+  }
+  .stamp-grid .stamp-done-text{
+    width:auto;
+    min-width:calc(94px * var(--habit-card-scale));
+    min-height:calc(28px * var(--habit-card-scale));
+    margin:0 auto calc(7px * var(--habit-card-scale));
+    padding:calc(3px * var(--habit-card-scale)) calc(14px * var(--habit-card-scale));
+    font-size:calc(14px * var(--habit-card-scale)) !important;
+    line-height:1 !important;
+    letter-spacing:.14em;
+  }
+  .stamp-grid .streak-label{
+    min-height:0;
+    margin:0;
+    font-size:calc(12.5px * var(--habit-card-scale)) !important;
+    line-height:1.18 !important;
+    letter-spacing:.075em;
+  }
+  @media (max-width:340px){
+    .stamp-grid .stamp-cell{
+      aspect-ratio:1 / 1.04 !important;
+      min-height:0 !important;
+      padding:10px 6px !important;
+    }
+    .stamp-grid .stamp-cell .label{
+      font-size:calc(16px * var(--habit-card-scale)) !important;
+      margin-bottom:calc(7px * var(--habit-card-scale));
+    }
+    .stamp-grid .stamp-visual{
+      width:calc(40px * var(--habit-card-scale)) !important;
+      height:calc(40px * var(--habit-card-scale)) !important;
+      margin-bottom:calc(5px * var(--habit-card-scale));
+    }
+    .stamp-grid .stamp-done-text{
+      min-width:calc(82px * var(--habit-card-scale));
+      min-height:calc(24px * var(--habit-card-scale));
+      margin-bottom:calc(5px * var(--habit-card-scale));
+      font-size:calc(12px * var(--habit-card-scale)) !important;
+    }
+    .stamp-grid .streak-label{
+      font-size:calc(10.5px * var(--habit-card-scale)) !important;
+    }
+  }
+
 </style>
 </head>
 <body>
