@@ -4027,6 +4027,31 @@
     margin-bottom:14px;
   }
 
+  /* 権利・出典画面: タイトルから本文まで視覚中心を統一する。 */
+  #rightsView .app-view-title,
+  #rightsView .legal-summary-card,
+  #rightsView .legal-details,
+  #rightsView .legal-details summary,
+  #rightsView .legal-details p{
+    text-align:center;
+  }
+  #rightsView .legal-details summary{
+    justify-content:center;
+    /* 右端の＋/−ぶんだけ片側に寄らないよう左右を同じ余白にする。 */
+    padding-left:42px;
+    padding-right:42px;
+  }
+  #rightsView .legal-details > :not(summary){
+    margin-left:auto;
+    margin-right:auto;
+    padding-left:14px;
+    padding-right:14px;
+    box-sizing:border-box;
+  }
+  #rightsView .legal-details p{
+    width:100%;
+  }
+
   /* 見出し英字はスマホでは省いて日本語の認知負荷を下げる */
   @media (max-width:420px){
     .card h2 .num,
@@ -5065,10 +5090,10 @@
       <button class="settings-menu-item" id="menuFontBtn">フォント<span class="settings-menu-arrow">›</span></button>
       <button class="settings-menu-item" id="menuBgColorBtn">背景の色<span class="settings-menu-arrow">›</span></button>
       <button class="settings-menu-item" id="menuIconBtn">アイコン<span class="settings-menu-arrow">›</span></button>
+      <button class="settings-menu-item" id="menuEditItemsBtn">項目の編集<span class="settings-menu-arrow">›</span></button>
     </div>
     <div class="settings-group">
       <div class="settings-group-title">記録とデータ</div>
-      <button class="settings-menu-item" id="menuEditItemsBtn">項目の編集<span class="settings-menu-arrow">›</span></button>
       <button class="settings-menu-item" id="menuBackupBtn">バックアップ･同期<span class="settings-menu-arrow">›</span></button>
       <button class="settings-menu-item settings-menu-important" id="menuRightsBtn">プライバシー･権利･出典<span class="settings-menu-arrow">›</span></button>
     </div>
@@ -5092,15 +5117,20 @@
 
 <p class="settings-guide-copy">アイコンはこのアプリ内に入っているため、使用中に外部サイトから画像やフォントを読み込みません。文字には端末の標準フォントを使います。</p>
 </details>
-<details class="legal-details"><summary>食品名･栄養値</summary>
+<details class="legal-details"><summary>食品名･栄養値の出典</summary>
 
-<p class="settings-guide-copy"><strong>アプリ内の栄養値は目安です。</strong> すべての数値について元資料まで確認できる出典記録がそろっていないため、「文部科学省の値」「メーカーの公式値」などとは表示していません。</p>
-<p class="settings-guide-copy">メーカーやブランドごとの商品データは入っていません。商品名を認識できた場合も、近い一般食品に置き換えて計算することがあります。そのため、商品の公式な栄養表示とは違う場合があります。</p>
-<p class="settings-guide-note">商品に栄養成分表示がある場合は、商品の表示を優先してください。このアプリの数値を、診断や治療などの医療判断には使わないでください。</p>
+<p class="settings-guide-copy"><strong>現在の栄養値は、個々の数値について元の資料を確認できる記録がそろっていません。</strong> そのため、特定の公的機関・メーカー・商品などの公式値や、その資料から引用した値としては表示していません。</p>
+<p class="settings-guide-copy">表示される栄養値は、食事記録を補助するための概算の参考値です。食品の種類、量、商品、材料、調理方法などによって実際の値と異なることがあります。</p>
+<p class="settings-guide-note">商品に栄養成分表示がある場合は、その表示を確認してください。健康・医療・治療などに関する判断を、このアプリの栄養値だけで行わないでください。</p>
+</details>
+<details class="legal-details"><summary>出典･引用について</summary>
+
+<p class="settings-guide-copy">このアプリで第三者の文章・画像・データなどを利用する場合は、適用される法令と、その資料ごとの利用条件に従う必要があります。出典を表示するだけで、すべての利用が認められるわけではありません。</p>
+<p class="settings-guide-copy">現在の内蔵栄養値については、個々の数値の元資料を確認できる記録がそろっていないため、確認できていない資料名を出典・引用元として表示していません。</p>
 </details>
 <details class="legal-details"><summary>商標･名称等</summary>
 
-<p class="settings-guide-copy">食品などを認識するため、他社の商品名やサービス名を文字として扱うことがあります。それらの名称や商標の権利は各権利者にあります。名前が表示されても、その会社がこのアプリを公認・提携・推奨しているという意味ではありません。他社のロゴや商品画像は表示しません。</p>
+<p class="settings-guide-copy">このアプリには、第三者企業のブランド名や商品名を認識するための専用辞書、商品別の公式栄養値、ロゴ、商品画像を内蔵していません。ユーザーが入力した文章に一般食品名が含まれる場合は、その一般食品名をもとに概算することがあります。第三者の名称が入力・表示された場合でも、その権利は各権利者にあり、このアプリとの提携・公認・推奨を示すものではありません。</p>
 </details>
 <details class="legal-details"><summary>データ保存･プライバシー</summary>
 
@@ -5506,7 +5536,7 @@
         <p><b>計算について：</b>アプリ内の食品データを使って概算します。食品名の表記ゆれにも、できる限り対応します。認識できない食品がある場合は、その食品を表示し、認識できた食品だけで合計を計算します。</p>
         <p><b>数値は目安です：</b>実際に測定した値ではありません。同じ料理でも、材料や量、商品によって栄養値は変わります。商品に栄養成分表示がある場合は、その表示を優先してください。</p>
         <p><b>入力を直したとき：</b>もう一度｢栄養を計算｣を押すと、最新の内容で計算し直します。</p>
-        <p><b>商品名･ブランド名について：</b>メーカーごとの商品別栄養値は内蔵していません。対応できる場合は、近い一般食品として概算するため、メーカーの公式値とは異なることがあります。</p>
+        <p><b>商品名･ブランド名について：</b>第三者企業の商品名・ブランド名を認識するための専用辞書や、商品別の公式栄養値は内蔵していません。入力文の中に一般食品名が含まれる場合は、その一般食品名をもとに概算することがあります。</p>
         <p><b>内蔵の栄養値について：</b>現在の数値は概算用の参考値です。すべての数値を元の資料まで確認できる完全な出典記録がないため、公的機関やメーカーの公式値としては扱っていません。</p>
         <p><b>健康･医療について：</b>このアプリは生活記録の補助ツールです。病気の診断･治療･予防、発症リスクの判定、個別の医療判断には使用できません。健康や安全に関わる判断では、医師などの専門家や公的機関の情報を優先してください。</p>
       </section>
@@ -7434,8 +7464,8 @@ function renderDailyTotal(){
   `;
 }
 
-// RIGHTS-HARDENING 2026-08-16: 第三者ブランド固有の商品別栄養値は保持しない。
-// ブランド名は必要に応じてNUTRI_ALIASESで一般食品へ正規化し、公式商品値とは表示しない。
+// RIGHTS-HARDENING 2026-08-16: 第三者ブランド固有の商品別栄養値・商品名辞書は保持しない。
+// 入力文に一般食品名が含まれる場合は、その一般食品名だけを既存の認識処理で判定する。
 const APP_COMPLIANCE_METADATA = Object.freeze({
   appName:'生活リズム帳',
   intendedUse:'personal-lifestyle-recording',
@@ -7459,7 +7489,8 @@ const NUTRI_DATA_PROVENANCE = Object.freeze({
   classification:'project-estimate',
   officialSourceClaim:false,
   brandSpecificOfficialValues:false,
-  note:'個々の内蔵値の原資料を追跡できる完全な出典台帳がないため、公的機関・メーカーの公式値として扱わない。'
+  sourceDisclosure:'個々の数値について元資料を確認できる記録が未整備。特定の公的機関・メーカー・商品等の公式値又は引用値として扱わない。第三者ブランド固有の商品名辞書・商品別公式栄養値は内蔵しない。',
+  note:'確認できていない資料名を出典・引用元として表示しない。'
 });
 const NUTRI_DB={
   '水':{name:'水',unit:'ml',perAmount:100,defaultQty:200,kcalPer:0,proteinPer:0,fatPer:0,carbPer:0},
@@ -8718,9 +8749,6 @@ const NUTRI_ALIASES={
   'おにぎり3個':'おにぎり',
   'コンビニおにぎり':'おにぎり',
   'コンビニのおにぎり':'おにぎり',
-  'セブンイレブンのおにぎり':'おにぎり',
-  'ローソンのおにぎり':'おにぎり',
-  'ファミマのおにぎり':'おにぎり',
   '直巻きおにぎり':'おにぎり',
   '手巻きおにぎり':'おにぎり',
   '塩むすび':'おにぎり',
@@ -8736,32 +8764,17 @@ const NUTRI_ALIASES={
   'サラダチキンハーブ':'サラダチキン',
   'コンビニパスタ':'パスタ',
   'コンビニ弁当':'幕の内弁当',
-  'セブンの弁当':'幕の内弁当',
-  'ローソンの弁当':'幕の内弁当',
-  'ファミマの弁当':'幕の内弁当',
   'コンビニサンドイッチ':'サンドイッチ',
   'たまごサンドイッチ':'たまごサンド',
   '卵サンド':'たまごサンド',
   'コンビニおでん':'おでん',
-  'マックのポテト':'フライドポテト',
   'ポテトS':'フライドポテト',
   'ポテトM':'フライドポテト',
   'ポテトL':'フライドポテト',
-  'マックフライポテト':'フライドポテト',
-
-  'チキンマックナゲット':'チキンナゲット',
-  'マックナゲット':'チキンナゲット',
-  'フィレオフィッシュ':'フィッシュバーガー',
-  'からあげクン':'から揚げ',
-
-
   '牛丼並盛':'牛丼',
   '牛丼並':'牛丼',
   '牛丼大盛り':'牛丼',
   '牛丼特盛':'牛丼',
-  'すき家の牛丼':'牛丼',
-  '吉野家の牛丼':'牛丼',
-  '松屋の牛丼':'牛丼',
   '牛めし':'牛丼',
   '豚丼並盛':'豚丼',
   'チキンカレー':'カレー',
@@ -8775,9 +8788,6 @@ const NUTRI_ALIASES={
   'かつサンド':'カツサンド',
   'ミラノ風ドリア':'ドリア',
   'ミートソースドリア':'ドリア',
-  'サイゼの辛味チキン':'フライドチキン',
-  '丸亀のうどん':'うどん',
-  '丸亀製麺':'うどん',
   'かけうどん':'うどん',
   'ぶっかけうどん':'うどん',
   'カレーうどん2':'カレーうどん',
@@ -8785,15 +8795,7 @@ const NUTRI_ALIASES={
   '天ぷらうどん':'うどん',
   'きつねそば':'きつねうどん',
   'たぬきうどん':'たぬきそば',
-  'すた丼':'豚丼',
-  'なか卯の丼':'親子丼',
   '親子丼並':'親子丼',
-  'CoCo壱のカレー':'カレー',
-  'ココイチ':'カレー',
-  'スタバのフラペチーノ':'カフェラテ',
-  'スターバックスラテ':'カフェラテ',
-  'ミスドのドーナツ':'ドーナツ',
-  'ミスタードーナツ':'ドーナツ',
   '肉じゃが煮':'肉じゃが',
   '筑前煮2':'筑前煮',
   '煮しめ':'筑前煮',
@@ -9287,16 +9289,7 @@ const NUTRI_ALIASES={
   'にがうりちゃんぷるー':'ゴーヤチャンプルー',
   // ▲▲▲ 拡充分ここまで ▲▲▲
 
-  // 第三者ブランド名は入力文字列の正規化に限って参照し、商品固有の公式栄養値・ロゴ・商品画像は保持しない。
-  // この対応表は提携・公認を示すものではない。不要なブランド語は追加しない。
-  'ビッグマック':'ハンバーガー',
-  'てりやきマックバーガー':'てりやきバーガー',
-  'から揚げクン':'から揚げ',
-  'ファミチキ':'フライドチキン',
-  'Lチキ':'フライドチキン',
-  '雪見だいふく':'アイスクリーム',
-  'ポカリ':'スポーツドリンク',
-  'フラペチーノ':'カフェラテ',
+  // 第三者ブランド固有の商品名はここへ登録しない。一般食品名・一般的な表記ゆれだけを扱う。
 };
 const NUTRI_DERIVED_ALIASES={};
 const NUTRI_PAREN_VARIANT_EXCLUDE=new Set(['追加','調理後','市販','1枚','カップ','麺のみ','フランス菓子']);
@@ -9334,6 +9327,11 @@ const NUTRI_COMPOSITES={
   'バタートースト':{name:'バタートースト',unit:'人前',parts:['食パン','バター']}
 };
 const NUTRI_RECOGNITION_ONLY={
+  '焼肉':'焼肉（肉の種類・部位・実際の量で栄養値が大きく変わるため未計算）',
+  '焼き肉':'焼肉（肉の種類・部位・実際の量で栄養値が大きく変わるため未計算）',
+  'やきにく':'焼肉（肉の種類・部位・実際の量で栄養値が大きく変わるため未計算）',
+  'バーベキュー':'バーベキュー（食材・量が分からないため未計算）',
+  'BBQ':'バーベキュー（食材・量が分からないため未計算）',
   '弁当':'弁当（中身・量が分からないため未計算）',
   '定食':'定食（主菜・副菜・ご飯量などが分からないため未計算）',
   'セット':'セット（組み合わせ・量が分からないため未計算）',
@@ -9347,7 +9345,9 @@ const NUTRI_RECOGNITION_ONLY={
 };
 const NUTRI_EFFECTIVE_ALIASES=Object.assign({},NUTRI_DERIVED_ALIASES,NUTRI_ALIASES,NUTRI_COMMON_ALIASES);
 const ALL_NUTRI_MATCH_KEYS=[...Object.keys(NUTRI_DB), ...Object.keys(NUTRI_EFFECTIVE_ALIASES), ...Object.keys(NUTRI_COMPOSITES)]
-  .filter((v,i,a)=>a.indexOf(v)===i)
+  // 末尾の「2」「3」などは重複登録を区別するための内部キーで、利用者が入力する食品名ではない。
+  // 「すき焼き2人前」の「2」を食品名の一部として誤って飲み込まないよう、照合候補から除外する。
+  .filter((v,i,a)=>a.indexOf(v)===i && !/[0-9]$/.test(v))
   .sort((a,b)=>b.length-a.length);
 const ALL_NUTRI_RECOGNITION_ONLY_KEYS=Object.keys(NUTRI_RECOGNITION_ONLY).sort((a,b)=>b.length-a.length);
 function buildCompositeNutriEntry(key){
@@ -9373,11 +9373,11 @@ const WEIGHT_UNITS=new Set(['g','ml']);
 // 数分以上フリーズすることを確認した(DoS)。通常の食事メモは長くても数百文字程度のため、
 // 十分に余裕を持たせつつ安全側に倒した上限値。
 const NUTRI_ANALYSIS_MAX_LENGTH = 2000;
-const COUNT_UNITS=new Set(['個','枚','本','切れ','パック','丁','杯','玉','人前','貫','皿','缶','尾','串','腹','片','株','房','束','粒','袋','箱','匹','巻き','合','斤']);
+const COUNT_UNITS=new Set(['個','枚','本','切れ','パック','丁','杯','玉','人前','人分','名分','食分','貫','皿','缶','尾','串','腹','片','株','房','束','粒','袋','箱','匹','巻き','合','斤']);
 // 数字の直後(または直前)に、これらの単位語のいずれかが続く場合は、｢裸の数字｣とはみなさない
 // (＝利用者が既に単位を明示しているとみなし、当て推量による数量解釈を行わない)。
 const KNOWN_UNIT_WORDS=[...WEIGHT_UNITS, ...COUNT_UNITS, '円'];
-const UNIT_ALIASES={'ｇ':'g','グラム':'g','グラムの':'g','ｍｌ':'ml','ミリ':'ml','ミリリットル':'ml'};
+const UNIT_ALIASES={'ｇ':'g','グラム':'g','グラムの':'g','ｍｌ':'ml','ミリ':'ml','ミリリットル':'ml','人分':'人前','名分':'人前','食分':'人前'};
 
 function normalizeUnit(u){
   return UNIT_ALIASES[u] || u;
@@ -9398,18 +9398,18 @@ function kanjiToNumber(s){
 
 function findQuantityMentions(text){
   // 文章中の｢数字+単位｣をすべて洗い出す(例:｢12個｣｢200g｣｢6個｣)
-  const re=/([0-9０-９]+(?:[.．][0-9０-９]+)?)\s*(個|枚|本|切れ|パック|丁|杯|玉|人前|貫|皿|缶|尾|串|腹|片|株|房|束|粒|袋|箱|匹|巻き|合|斤|ホール|グラム|ｇ|g|ミリリットル|ミリ|ｍｌ|ml)/g;
+  const re=/([0-9０-９]+(?:[.．][0-9０-９]+)?)\s*(個|枚|本|切れ|パック|丁|杯|玉|人前|人分|名分|食分|貫|皿|缶|尾|串|腹|片|株|房|束|粒|袋|箱|匹|巻き|合|斤|ホール|グラム|ｇ|g|ミリリットル|ミリ|ｍｌ|ml)/g;
   const mentions=[];
   let m;
   while((m=re.exec(text))!==null){
     mentions.push({index:m.index, length:m[0].length, number:parseFloat(m[1].replace(/[０-９]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0xFEE0)).replace('．','.')), unit:normalizeUnit(m[2])});
   }
   // 漢数字+単位(例:｢二人前｣｢三個｣)
-  const kanjiRe=/([〇一二三四五六七八九]?十[一二三四五六七八九]?|[〇一二三四五六七八九])(個|枚|本|切れ|パック|丁|杯|玉|人前|貫|皿|缶|尾|串|腹|片|株|房|束|粒|袋|箱|匹|巻き|合|斤|ホール)/g;
+  const kanjiRe=/([〇一二三四五六七八九]?十[一二三四五六七八九]?|[〇一二三四五六七八九])(個|枚|本|切れ|パック|丁|杯|玉|人前|人分|名分|食分|貫|皿|缶|尾|串|腹|片|株|房|束|粒|袋|箱|匹|巻き|合|斤|ホール)/g;
   while((m=kanjiRe.exec(text))!==null){
     const num=kanjiToNumber(m[1]);
     if(num!==null && num>0){
-      mentions.push({index:m.index, length:m[0].length, number:num, unit:m[2]});
+      mentions.push({index:m.index, length:m[0].length, number:num, unit:normalizeUnit(m[2])});
     }
   }
   // ｢半分｣｢半｣(例:｢卵焼き半分｣)は、単位を問わず｢標準量の0.5倍｣を意味する特別な表現として扱う
@@ -9487,6 +9487,8 @@ function estimateNutritionLocal(text){
   const matchedRanges=[];
   const recognizedOnly=[];
   const recognizedOnlyRanges=[];
+  const qtyMentions=findQuantityMentions(text);
+  const recognizedQtyUsed=new Set();
   for(const key of ALL_NUTRI_RECOGNITION_ONLY_KEYS){
     const normKey=toKatakana(key);
     let searchFrom=0;
@@ -9495,15 +9497,35 @@ function estimateNutritionLocal(text){
       if(!hit) break;
       const idx=hit.index, matchLen=hit.length;
       if(normKey.length<=3 && !isNutriWordBoundaryOk(work,idx,matchLen)){ searchFrom=idx+1; continue; }
-      recognizedOnly.push(NUTRI_RECOGNITION_ONLY[key]);
+      // 曖昧な料理名でも「何人前・何人分」など利用者が明示した量は認識して表示する。
+      // ただし、料理の中身を推測して栄養値を作ることはしない。
+      let recognizedLabel=NUTRI_RECOGNITION_ONLY[key];
+      let nearestQty=null, nearestDist=Infinity;
+      for(const qm of qtyMentions){
+        if(recognizedQtyUsed.has(qm.index)) continue;
+        const distAfter=qm.index-(idx+matchLen);
+        const distBefore=idx-(qm.index+qm.length);
+        const spanAfter=distAfter>=0 ? text.slice(idx+matchLen,qm.index) : null;
+        const spanBefore=distBefore>=0 ? text.slice(qm.index+qm.length,idx) : null;
+        const afterOk=distAfter>=0 && !(spanAfter&&spanAfter.includes('\n'));
+        const beforeOk=distBefore>=0 && !(spanBefore&&spanBefore.includes('\n'));
+        const dist=Math.min(afterOk?distAfter:Infinity,beforeOk?distBefore:Infinity);
+        if(dist<=8 && dist<nearestDist){ nearestQty=qm; nearestDist=dist; }
+      }
+      if(nearestQty){
+        recognizedQtyUsed.add(nearestQty.index);
+        const qtyDisplay=Number.isInteger(nearestQty.number)?nearestQty.number:Math.round(nearestQty.number*10)/10;
+        const unitDisplay=nearestQty.unit==='__HALF__'?'半分':nearestQty.unit;
+        recognizedLabel=recognizedLabel.replace('（',`（${qtyDisplay}${unitDisplay}・`);
+      }
+      recognizedOnly.push(recognizedLabel);
       recognizedOnlyRanges.push({start:idx,end:idx+matchLen});
       work=work.slice(0,idx)+' '.repeat(matchLen)+work.slice(idx+matchLen);
       normWork=normWork.slice(0,idx)+' '.repeat(matchLen)+normWork.slice(idx+matchLen);
       searchFrom=idx+matchLen;
     }
   }
-  const qtyMentions=findQuantityMentions(text);
-  const usedQty=new Set();
+  const usedQty=new Set(recognizedQtyUsed);
 
   for(const key of ALL_NUTRI_MATCH_KEYS){
     const normKey=toKatakana(key);
@@ -9720,8 +9742,9 @@ function estimateNutritionLocal(text){
   for(const part of residual.split(/\n|\s{2,}/)){
     const cleaned=part.trim().replace(/^[\s　]+|[\s　]+$/g,'');
     if(!cleaned) continue;
-    const quantityOnly=/^[0-9０-９.．\s　gｇmlｍｌグラムミリリットル個枚本切れパック丁杯玉人前貫皿缶尾串腹片株房束粒袋箱匹巻き合斤ホール半分]+$/i.test(cleaned);
-    if(!quantityOnly && /[A-Za-zＡ-Ｚａ-ｚ一-龯ぁ-んァ-ヶ]/.test(cleaned)){
+    const quantityOnly=/^[0-9０-９.．\s　gｇmlｍｌグラムミリリットル個枚本切れパック丁杯玉人前人分名分食分貫皿缶尾串腹片株房束粒袋箱匹巻き合斤ホール半分]+$/i.test(cleaned);
+    const particleOnly=/^(?:の|を|が|は|に|で|と|も|へ|や)+$/.test(cleaned);
+    if(!quantityOnly && !particleOnly && /[A-Za-zＡ-Ｚａ-ｚ一-龯ぁ-んァ-ヶ]/.test(cleaned)){
       // 「弁当」「定食」「セット」は食事を示す語だが、中身や量を一意に決められない。
       // 以前は未認識判定の前に消していたため、入力したのに結果から黙って消える問題があった。
       // 推測で栄養値を穴埋めせず、計算できない理由を明示する(Fail Closed)。
