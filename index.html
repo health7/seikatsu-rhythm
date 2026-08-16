@@ -4968,6 +4968,26 @@
     min-height:calc(178px * var(--user-font-scale,1));
   }
 
+  /* 2026-08-16 習慣カード：上下余白を均等化
+     4要素を1つの内容ブロックとして扱い、そのブロック自体をカード中央へ配置する。 */
+  .stamp-cell{
+    padding-block:clamp(14px,4.2vw,22px);
+    justify-content:center;
+  }
+  .stamp-card-content{
+    box-sizing:border-box;
+    width:100%;
+    margin-block:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+  }
+  @media (max-width:340px){
+    .stamp-cell{padding-block:12px;}
+  }
+
 </style>
 </head>
 <body>
@@ -5112,49 +5132,57 @@
   </div>
   <div class="stamp-grid" style="margin-bottom:14px;">
     <div class="stamp-cell" id="taisoCell" role="button" tabindex="0" aria-pressed="false" aria-label="ラジオ体操">
-      <div class="label">ラジオ体操</div>
-      <div class="stamp-visual">
-        <svg viewBox="0 0 100 100" class="stamp-svg">
-          <text class="suit-outline" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♠</text>
-          <text class="suit-filled" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♠</text>
-        </svg>
+      <div class="stamp-card-content">
+  <div class="label">ラジオ体操</div>
+        <div class="stamp-visual">
+          <svg viewBox="0 0 100 100" class="stamp-svg">
+            <text class="suit-outline" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♠</text>
+            <text class="suit-filled" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♠</text>
+          </svg>
+        </div>
+        <div class="stamp-done-text">DONE</div>
+        <div class="streak-label" id="taisoStreak"></div>
       </div>
-      <div class="stamp-done-text">DONE</div>
-      <div class="streak-label" id="taisoStreak"></div>
-    </div>
+</div>
     <div class="stamp-cell" id="bathCell" role="button" tabindex="0" aria-pressed="false" aria-label="湯船">
-      <div class="label">湯船</div>
-      <div class="stamp-visual">
-        <svg viewBox="0 0 100 100" class="stamp-svg">
-          <text class="suit-outline" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♥</text>
-          <text class="suit-filled" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♥</text>
-        </svg>
+      <div class="stamp-card-content">
+  <div class="label">湯船</div>
+        <div class="stamp-visual">
+          <svg viewBox="0 0 100 100" class="stamp-svg">
+            <text class="suit-outline" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♥</text>
+            <text class="suit-filled" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♥</text>
+          </svg>
+        </div>
+        <div class="stamp-done-text">DONE</div>
+        <div class="streak-label" id="bathStreak"></div>
       </div>
-      <div class="stamp-done-text">DONE</div>
-      <div class="streak-label" id="bathStreak"></div>
-    </div>
+</div>
     <div class="stamp-cell" id="soujiCell" role="button" tabindex="0" aria-pressed="false" aria-label="掃除">
-      <div class="label">掃除</div>
-      <div class="stamp-visual">
-        <svg viewBox="0 0 100 100" class="stamp-svg">
-          <text class="suit-outline" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♣</text>
-          <text class="suit-filled" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♣</text>
-        </svg>
+      <div class="stamp-card-content">
+  <div class="label">掃除</div>
+        <div class="stamp-visual">
+          <svg viewBox="0 0 100 100" class="stamp-svg">
+            <text class="suit-outline" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♣</text>
+            <text class="suit-filled" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♣</text>
+          </svg>
+        </div>
+        <div class="stamp-done-text">DONE</div>
+        <div class="streak-label" id="soujiStreak"></div>
       </div>
-      <div class="stamp-done-text">DONE</div>
-      <div class="streak-label" id="soujiStreak"></div>
-    </div>
+</div>
     <div class="stamp-cell" id="sentakuCell" role="button" tabindex="0" aria-pressed="false" aria-label="洗濯">
-      <div class="label">洗濯</div>
-      <div class="stamp-visual">
-        <svg viewBox="0 0 100 100" class="stamp-svg">
-          <text class="suit-outline" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♦</text>
-          <text class="suit-filled" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♦</text>
-        </svg>
+      <div class="stamp-card-content">
+  <div class="label">洗濯</div>
+        <div class="stamp-visual">
+          <svg viewBox="0 0 100 100" class="stamp-svg">
+            <text class="suit-outline" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♦</text>
+            <text class="suit-filled" x="50" y="78" text-anchor="middle" font-size="92" font-family="'Zen Kaku Gothic New',sans-serif">♦</text>
+          </svg>
+        </div>
+        <div class="stamp-done-text">DONE</div>
+        <div class="streak-label" id="sentakuStreak"></div>
       </div>
-      <div class="stamp-done-text">DONE</div>
-      <div class="streak-label" id="sentakuStreak"></div>
-    </div>
+</div>
   </div>
   </div>
 
